@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "email": "onafuyefola@gmail.com",
+      "name": "Folagnade",
+      "passwordHash": "$2a$10$s7oNTvU2DmS81Iy8XRUjHuwkfJWLRPrzoZvB11L4NDKSa6Qk5PMLS",
+      "id": "18e30044-5002-4071-919d-76083eac0f14",
+      "plan": "FREE",
+      "aiUsageCount": 1
+    }
+  ],
+  "letters": [],
+  "profiles": {}
+}
