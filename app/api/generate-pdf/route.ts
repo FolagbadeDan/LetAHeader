@@ -1,29 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
-import puppeteer from 'puppeteer';
+import { getBrowser } from '@/lib/puppeteer';
 
 export async function POST(req: NextRequest) {
-    try {
-        const { html } = await req.json();
+  try {
+    const { html } = await req.json();
 
-        if (!html) {
-            return NextResponse.json({ error: 'Missing HTML content' }, { status: 400 });
-        }
+    if (!html) {
+      return NextResponse.json({ error: 'Missing HTML content' }, { status: 400 });
+    }
 
-        const browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
-        });
+    const browser = await getBrowser();
 
-        const page = await browser.newPage();
+    const page = await browser.newPage();
 
-        // 1. Construct Full HTML Document
-        // We inject:
-        // - Tailwind CDN for utility classes
-        // - Google Fonts (Inter, etc.) matching globals.css
-        // - Custom CSS Variables (foreground, background, etc.) matching globals.css
-        // - Custom Styles (.a4-paper-container overrides for proper PDF marginless render)
+    // 1. Construct Full HTML Document
+    // We inject:
+    // - Tailwind CDN for utility classes
+    // - Google Fonts (Inter, etc.) matching globals.css
+    // - Custom CSS Variables (foreground, background, etc.) matching globals.css
+    // - Custom Styles (.a4-paper-container overrides for proper PDF marginless render)
 
-        const fullContent = `
+    const fullContent = `
       <!DOCTYPE html>
       <html>
         <head>
@@ -113,25 +110,25 @@ export async function POST(req: NextRequest) {
       </html>
     `;
 
-        await page.setContent(fullContent, { waitUntil: 'networkidle0' });
+    await page.setContent(fullContent, { waitUntil: 'networkidle0' });
 
-        const pdfBuffer = await page.pdf({
-            format: 'A4',
-            printBackground: true,
-            margin: { top: '0', right: '0', bottom: '0', left: '0' }
-        });
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
+      printBackground: true,
+      margin: { top: '0', right: '0', bottom: '0', left: '0' }
+    });
 
-        await browser.close();
+    await browser.close();
 
-        return new NextResponse(Buffer.from(pdfBuffer), {
-            headers: {
-                'Content-Type': 'application/pdf',
-                'Content-Disposition': 'attachment; filename="document.pdf"',
-            },
-        });
+    return new NextResponse(Buffer.from(pdfBuffer), {
+      headers: {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename="document.pdf"',
+      },
+    });
 
-    } catch (error: any) {
-        console.error('PDF Generation Error:', error);
-        return NextResponse.json({ error: error.message || 'Failed to generate PDF' }, { status: 500 });
-    }
+  } catch (error: any) {
+    console.error('PDF Generation Error:', error);
+    return NextResponse.json({ error: error.message || 'Failed to generate PDF' }, { status: 500 });
+  }
 }

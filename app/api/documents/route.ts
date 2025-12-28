@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import puppeteer from 'puppeteer';
 import HTMLtoDOCX from 'html-to-docx';
+import { getBrowser } from '@/lib/puppeteer';
 
 export async function POST(req: Request) {
     console.log("Document generation request received");
@@ -13,10 +13,7 @@ export async function POST(req: Request) {
         }
 
         if (type === 'pdf') {
-            const browser = await puppeteer.launch({
-                headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            });
+            const browser = await getBrowser();
             const page = await browser.newPage();
 
             // Set content and wait for network idle to ensure styles load
