@@ -15,24 +15,34 @@ export async function POST(req: Request) {
         const { companyName, slogan, primaryColor, website, address } = body;
         const userId = (session.user as any).id;
 
-        const profile = await db.brandProfile.upsert({
-            where: { userId },
-            update: {
-                companyName,
-                slogan,
-                primaryColor,
-                website,
-                address,
-            },
-            create: {
-                userId,
-                companyName,
-                slogan,
-                primaryColor,
-                website,
-                address,
-            },
+        const existingProfile = await db.brandProfile.findFirst({
+            where: { userId }
         });
+
+        let profile;
+        if (existingProfile) {
+            profile = await db.brandProfile.update({
+                where: { id: existingProfile.id },
+                data: {
+                    companyName,
+                    slogan,
+                    primaryColor,
+                    website,
+                    address,
+                }
+            });
+        } else {
+            profile = await db.brandProfile.create({
+                data: {
+                    userId,
+                    companyName,
+                    slogan,
+                    primaryColor,
+                    website,
+                    address,
+                }
+            });
+        }
 
         return NextResponse.json(profile);
     } catch (error) {

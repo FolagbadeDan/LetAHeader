@@ -17,7 +17,7 @@ export default async function DashboardPage() {
 
     // Check if user has onboarded
     const userId = (session.user as any).id;
-    const profile = await db.brandProfile.findUnique({
+    const profile = await db.brandProfile.findFirst({
         where: { userId }
     });
 
