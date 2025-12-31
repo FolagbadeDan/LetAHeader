@@ -10,6 +10,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
+    // Debug Logging for Vercel
+    console.log("Registering user:", email);
+    if (!process.env.DATABASE_URL) {
+      console.error("CRITICAL: DATABASE_URL is missing in environment variables!");
+      return NextResponse.json({ error: "Server Configuration Error: Database not connected" }, { status: 500 });
+    }
+
     const existingUser = await db.user.findUnique({ where: { email } });
     if (existingUser) {
       return NextResponse.json({ error: "User already exists" }, { status: 400 });

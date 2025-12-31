@@ -77,12 +77,11 @@ function getAIProvider(): AIProvider {
   // Currently forcing OpenRouter as requested
 
   const openRouterKey = process.env.OPENROUTER_API_KEY;
-  if (openRouterKey) {
-    return new OpenRouterProvider(openRouterKey);
+  if (!openRouterKey) {
+    console.error("CRITICAL: OPENROUTER_API_KEY is missing!");
+    throw new Error("Configuration Error: OPENROUTER_API_KEY is missing.");
   }
-
-  // Fallback or Error
-  throw new Error("Configuration Error: OPENROUTER_API_KEY is missing. Please add it to your .env.local file.");
+  return new OpenRouterProvider(openRouterKey);
 }
 
 // --- Main API Route ---
