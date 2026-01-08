@@ -145,7 +145,13 @@ export const OnboardingWizard = () => {
                             </div>
                         </div>
 
-                        <div className="mt-8 flex justify-end">
+                        <div className="mt-8 flex justify-between items-center">
+                            <button
+                                onClick={() => router.push('/dashboard')}
+                                className="text-slate-500 font-medium hover:text-slate-800 text-sm"
+                            >
+                                Skip for now
+                            </button>
                             <button
                                 onClick={() => setStep(2)}
                                 disabled={!data.companyName}

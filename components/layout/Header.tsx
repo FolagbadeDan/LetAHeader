@@ -37,7 +37,10 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="h-20 md:h-24 flex items-center justify-between px-6 md:px-12 bg-white/80 backdrop-blur-md border-b border-slate-200/60 sticky top-0 z-50 transition-all duration-300">
 
       <div className="flex items-center gap-6">
-        <div className="flex items-center gap-2 cursor-pointer group" onClick={onStart}>
+        <Link
+          href={session ? "/dashboard" : "/"}
+          className="flex items-center gap-2 cursor-pointer group"
+        >
           {!logoError ? (
             <img
               src={LOGO_URL}
@@ -53,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="font-bold text-2xl tracking-tight text-slate-900">LetAHeader</span>
             </div>
           )}
-        </div>
+        </Link>
 
         {/* Brand Switcher (Visible if user is logged in and features provided) */}
         {session && profiles && onSwitchProfile && currentProfile && (
@@ -70,6 +73,9 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-8">
+        {session && (
+          <Link href="/dashboard" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Home</Link>
+        )}
         <button onClick={onOpenTemplates} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Templates</button>
         <button onClick={onOpenPricing} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Pricing</button>
 
@@ -131,6 +137,9 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="flex flex-col p-6 gap-6">
               {!session && (
                 <button onClick={() => { setIsMobileMenuOpen(false); onOpenAuth(); }} className="text-base font-medium text-slate-700 text-left">Log In</button>
+              )}
+              {session && (
+                <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-slate-700 text-left">Home</Link>
               )}
               <button onClick={() => { setIsMobileMenuOpen(false); onOpenTemplates(); }} className="text-base font-medium text-slate-700 text-left">Templates</button>
               <button onClick={() => { setIsMobileMenuOpen(false); onOpenPricing(); }} className="text-base font-medium text-slate-700 text-left">Pricing</button>
