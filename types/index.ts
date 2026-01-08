@@ -71,11 +71,11 @@ export interface PresetTemplate {
 }
 
 export const DEFAULT_PROFILE: CompanyProfile = {
-  name: "Acme Corp Solutions",
-  address: "123 Innovation Way, Tech City, TC 90210",
-  email: "contact@acmecorp.com",
-  phone: "+1 (555) 123-4567",
-  website: "www.acmecorp.com",
+  name: "",
+  address: "",
+  email: "",
+  phone: "",
+  website: "",
   logoUrl: null,
   primaryColor: "#0f172a", // Slate 900
   accentColor: "#0ea5e9", // Sky 500
@@ -91,11 +91,11 @@ export const DEFAULT_PROFILE: CompanyProfile = {
 };
 
 export const DEFAULT_CONTENT: LetterContent = {
-  recipientName: "Jane Smith",
-  recipientAddress: "Director of Operations\nGlobal Industries Inc.\n456 Corporate Blvd\nMetropolis, NY 10012",
+  recipientName: "",
+  recipientAddress: "",
   date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-  subject: "Proposal for Q4 Strategic Partnership",
-  body: `<p>Dear Ms. Smith,</p><p><br></p><p>I hope this letter finds you well. Following our recent discussion regarding the potential synergy between our organizations, I am pleased to submit this formal proposal for your review.</p><p><br></p><p>At <strong>Acme Corp Solutions</strong>, we believe that a strategic partnership would mutually benefit our objectives for the upcoming quarter. We have outlined the key deliverables and timeline in the attached documentation.</p><p><br></p><p>We are excited about the possibility of working together and look forward to your positive response.</p><p><br></p><p>Sincerely,</p><p><br></p><p><strong>John Doe</strong><br>Chief Executive Officer</p>`,
+  subject: "",
+  body: `<p>Start typing your letter here...</p>`,
 };
 
 export const PRESETS: PresetTemplate[] = [

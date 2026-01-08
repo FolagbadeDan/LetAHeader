@@ -289,7 +289,7 @@ const WizardOverlay: React.FC<WizardProps> = ({
                     <label className="block text-sm font-semibold text-slate-700 mb-2">Company Name</label>
                     <input
                       type="text"
-                      placeholder="Acme Corp Solutions"
+                      placeholder="Your Company Name"
                       className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-white"
                       value={profile.name}
                       onChange={(e) => setProfile({ ...profile, name: e.target.value })}
@@ -312,7 +312,7 @@ const WizardOverlay: React.FC<WizardProps> = ({
                       <label className="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
                       <input
                         type="email"
-                        placeholder="contact@acmecorp.com"
+                        placeholder="contact@yourcompany.com"
                         className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-white"
                         value={profile.email}
                         onChange={(e) => setProfile({ ...profile, email: e.target.value })}
@@ -322,7 +322,7 @@ const WizardOverlay: React.FC<WizardProps> = ({
                       <label className="block text-sm font-semibold text-slate-700 mb-2">Website</label>
                       <input
                         type="text"
-                        placeholder="www.acmecorp.com"
+                        placeholder="www.yourcompany.com"
                         className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-white"
                         value={profile.website}
                         onChange={(e) => setProfile({ ...profile, website: e.target.value })}

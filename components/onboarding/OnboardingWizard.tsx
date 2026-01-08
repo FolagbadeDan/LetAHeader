@@ -130,7 +130,7 @@ export const OnboardingWizard = () => {
                                     value={data.companyName}
                                     onChange={(e) => updateData('companyName', e.target.value)}
                                     className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all font-medium"
-                                    placeholder="Acme Inc."
+                                    placeholder="Your Company Name"
                                     autoFocus
                                 />
                             </div>
@@ -222,7 +222,7 @@ export const OnboardingWizard = () => {
                                         value={data.website}
                                         onChange={(e) => updateData('website', e.target.value)}
                                         className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all font-medium"
-                                        placeholder="www.acme.com"
+                                        placeholder="www.yourcompany.com"
                                     />
                                 </div>
                             </div>

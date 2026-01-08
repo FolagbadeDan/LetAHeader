@@ -85,7 +85,7 @@ export const ProfileManagerModal: React.FC<ProfileManagerModalProps> = ({
                                     <input
                                         required
                                         className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg font-bold text-lg focus:ring-2 focus:ring-blue-500/20 outline-none"
-                                        placeholder="Acme Inc."
+                                        placeholder="Your Company Name"
                                         value={profile.name}
                                         onChange={e => setProfile({ ...profile, name: e.target.value })}
                                     />

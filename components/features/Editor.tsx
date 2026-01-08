@@ -4,7 +4,7 @@ import { LetterContent } from '@/types';
 import {
   Bold, Italic, Underline, List,
   AlignLeft, AlignCenter, AlignRight,
-  Wand2, ChevronDown, Calendar, User, MapPin, FileType, Type, Sparkles, PenTool
+  Wand2, ChevronDown, Calendar, User, MapPin, FileType, Type, Sparkles, PenTool, CheckCircle2
 } from 'lucide-react';
 import Dock, { DockItem } from '@/components/Dock';
 import { SignaturePad } from './SignaturePad';
@@ -25,20 +25,58 @@ export const Editor: React.FC<EditorProps> = ({ content, setContent, onAIAssist 
 
   const execCmd = (command: string) => document.execCommand(command, false);
 
-  const handleSmartFormat = () => {
-    const temp = document.createElement('div');
-    temp.innerHTML = content.body;
-    const text = temp.innerText || temp.textContent || "";
-    const lines = text.split(/\n/);
-    let newHtml = '';
-    lines.forEach(line => {
-      const trimmed = line.trim();
-      if (trimmed) {
-        newHtml += `<p>${trimmed}</p>`;
+  const [isFormatting, setIsFormatting] = useState(false);
+  const [formatError, setFormatError] = useState<string | null>(null);
+
+  const handleSmartFormat = async () => {
+    if (isFormatting) return;
+
+    setIsFormatting(true);
+    setFormatError(null);
+
+    try {
+      const response = await fetch('/api/auto-format', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ html: content.body })
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        setFormatError(error.error || 'Auto-format failed. Please try again.');
+        return;
       }
-    });
-    if (!newHtml) newHtml = '<p><br/></p>';
-    setContent(prev => ({ ...prev, body: newHtml }));
+
+      const data = await response.json();
+      const correctedHtml = data.correctedHtml;
+
+      // Critical: Validate that we actually got HTML back, not an error message
+      if (!correctedHtml || typeof correctedHtml !== 'string') {
+        setFormatError('Invalid response from auto-format service.');
+        return;
+      }
+
+      // Check if response looks like an error message rather than HTML
+      if (correctedHtml.toLowerCase().includes('error:') ||
+        correctedHtml.toLowerCase().includes('flagged') ||
+        correctedHtml.length < 10) {
+        setFormatError('Unable to format this content. Please review and try again.');
+        return;
+      }
+
+      // Only update content if we have valid HTML
+      setContent(prev => ({ ...prev, body: correctedHtml }));
+
+      // Show success feedback
+      setFormatError('✓ Content formatted successfully!');
+      setTimeout(() => setFormatError(null), 3000);
+
+    } catch (error) {
+      console.error('Auto-format error:', error);
+      setFormatError('Auto-format failed. Please check your connection and try again.');
+    } finally {
+      setIsFormatting(false);
+    }
   };
 
   const savedRange = React.useRef<Range | null>(null);
@@ -84,10 +122,10 @@ export const Editor: React.FC<EditorProps> = ({ content, setContent, onAIAssist 
     { icon: <AlignCenter className="w-5 h-5 text-slate-200" />, label: "Center", onClick: () => execCmd('justifyCenter') },
     { icon: <AlignRight className="w-5 h-5 text-slate-200" />, label: "Right", onClick: () => execCmd('justifyRight') },
     {
-      icon: <Wand2 className="w-5 h-5 text-purple-400" />,
-      label: "Smart Format",
+      icon: isFormatting ? <div className="w-5 h-5 border-2 border-purple-400 border-t-transparent rounded-full animate-spin" /> : <Wand2 className="w-5 h-5 text-purple-400" />,
+      label: isFormatting ? "Formatting..." : "Smart Format",
       onClick: handleSmartFormat,
-      className: "bg-purple-900/30 border-purple-500/30"
+      className: `bg-purple-900/30 border-purple-500/30 ${isFormatting ? 'opacity-50 cursor-wait' : ''}`
     },
     {
       icon: <Sparkles className="w-5 h-5 text-blue-400" />,
@@ -117,6 +155,29 @@ export const Editor: React.FC<EditorProps> = ({ content, setContent, onAIAssist 
           distance={0}
         />
       </div>
+
+      {/* Toast Notification for Format Feedback */}
+      {formatError && (
+        <div className={`mx-4 mb-2 px-4 py-3 rounded-xl border flex items-center gap-3 animate-in slide-in-from-top-4 duration-300 ${formatError.startsWith('✓')
+          ? 'bg-green-50 border-green-200 text-green-800'
+          : 'bg-red-50 border-red-200 text-red-800'
+          }`}>
+          {formatError.startsWith('✓') ? (
+            <CheckCircle2 className="w-5 h-5 shrink-0" />
+          ) : (
+            <div className="w-5 h-5 rounded-full border-2 border-current flex items-center justify-center shrink-0">
+              <span className="text-xs font-bold">!</span>
+            </div>
+          )}
+          <p className="text-sm font-medium flex-1">{formatError.replace('✓ ', '')}</p>
+          <button
+            onClick={() => setFormatError(null)}
+            className="text-current hover:opacity-70 transition"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       {/* Content Area */}
       <div className="flex-1 overflow-y-auto custom-scrollbar p-4 lg:p-8">
