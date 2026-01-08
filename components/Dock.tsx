@@ -1,12 +1,12 @@
 'use client';
 
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence, MotionValue } from 'motion/react';
-import { Children, cloneElement, useEffect, useMemo, useRef, useState, ReactElement, ReactNode } from 'react';
+import { Children, cloneElement, useEffect, useMemo, useRef, useState, ReactElement, ReactNode, isValidElement } from 'react';
 
 import './Dock.css';
 
 interface DockItemProps {
-    children: ReactElement;
+    children: ReactNode;
     className?: string;
     onClick?: () => void;
     mouseX: MotionValue<number>;
@@ -48,7 +48,12 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
             role="button"
             aria-haspopup="true"
         >
-            {Children.map(children, child => cloneElement(child, { isHovered } as any))}
+            {Children.map(children, child => {
+                if (isValidElement(child)) {
+                    return cloneElement(child, { isHovered } as any);
+                }
+                return child;
+            })}
         </motion.div>
     );
 }
@@ -74,9 +79,9 @@ function DockLabel({ children, className = '', isHovered, ...rest }: DockLabelPr
         <AnimatePresence>
             {isVisible && (
                 <motion.div
-                    initial={{ opacity: 0, y: 0 }}
-                    animate={{ opacity: 1, y: -10 }}
-                    exit={{ opacity: 0, y: 0 }}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
                     className={`dock-label ${className}`}
                     role="tooltip"
@@ -164,10 +169,8 @@ export default function Dock({
                         magnification={magnification}
                         baseItemSize={baseItemSize}
                     >
-                        <>
-                            <DockIcon>{item.icon}</DockIcon>
-                            <DockLabel>{item.label}</DockLabel>
-                        </>
+                        <DockIcon>{item.icon}</DockIcon>
+                        <DockLabel>{item.label}</DockLabel>
                     </DockItem>
                 ))}
             </motion.div>
