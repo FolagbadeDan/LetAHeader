@@ -12,7 +12,7 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String    @unique
-  passwordHash  String
+  passwordHash  String?
   plan          String    @default("FREE")
   aiUsageCount  Int       @default(0)
   createdAt     DateTime  @default(now())
