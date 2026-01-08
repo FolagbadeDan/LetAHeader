@@ -54,7 +54,7 @@ export default function SignupPage() {
                     <img
                         src="https://i.ibb.co/MyRD18v8/by-Youmaximize.png"
                         alt="LetAHeader"
-                        className="w-[200px] h-auto object-contain brightness-0 invert"
+                        className="w-[200px] h-auto object-contain grayscale invert mix-blend-screen"
                     />
                 </div>
 
