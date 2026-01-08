@@ -170,12 +170,11 @@ const WizardOverlay: React.FC<WizardProps> = ({
                 onError={() => setLogoError(true)}
               />
             ) : (
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-slate-900 text-white rounded-lg flex items-center justify-center shadow-md">
-                  <FileText className="w-6 h-6" />
-                </div>
-                <span className="font-bold text-2xl tracking-tight text-slate-900">LetAHeader</span>
-              </div>
+              <img
+                src="https://i.ibb.co/MyRD18v8/by-Youmaximize.png"
+                alt="LetAHeader"
+                className="w-[200px] h-auto object-contain mix-blend-multiply"
+              />
             )}
           </div>
           <div className="text-sm text-slate-500 font-medium">

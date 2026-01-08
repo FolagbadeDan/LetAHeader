@@ -3,6 +3,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useSession, signOut } from "next-auth/react";
+import Link from 'next/link';
 import { ConfigPanel } from '../features/ConfigPanel';
 import { DocumentPreview } from '../features/DocumentPreview';
 import { Editor } from '../features/Editor';
@@ -400,7 +401,7 @@ const AppWrapper: React.FC<AppWrapperProps> = ({ startMode = false }) => {
               )}
             </div>
           ) : (
-            <button onClick={() => setIsAuthModalOpen(true)} className="hidden md:block text-xs font-bold text-slate-600 hover:text-slate-900">Log In</button>
+            <Link href="/login" className="hidden md:block text-xs font-bold text-slate-600 hover:text-slate-900">Log In</Link>
           )}
 
           <div className="h-4 w-px bg-slate-200 hidden md:block"></div>

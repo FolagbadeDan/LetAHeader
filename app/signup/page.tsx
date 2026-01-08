@@ -50,11 +50,12 @@ export default function SignupPage() {
             {/* Branding Side (Desktop) */}
             <div className="hidden md:flex w-1/2 bg-blue-600 text-white flex-col justify-between p-12 lg:p-16 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                <div className="relative z-10 flex items-center gap-2">
-                    <div className="w-10 h-10 bg-white text-blue-600 rounded-lg flex items-center justify-center">
-                        <FileText className="w-6 h-6" />
-                    </div>
-                    <span className="text-2xl font-bold tracking-tight">LetAHeader</span>
+                <div className="relative z-10 flex items-center gap-2 mb-8">
+                    <img
+                        src="https://i.ibb.co/MyRD18v8/by-Youmaximize.png"
+                        alt="LetAHeader"
+                        className="w-[200px] h-auto object-contain brightness-0 invert"
+                    />
                 </div>
 
                 <div className="relative z-10">
@@ -75,10 +76,11 @@ export default function SignupPage() {
             <div className="flex-1 flex flex-col justify-center items-center p-6 md:p-12 lg:p-20 bg-slate-50 md:bg-white">
                 <div className="w-full max-w-md space-y-8">
                     <div className="md:hidden flex items-center gap-2 mb-8 justify-center">
-                        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                            <FileText className="w-5 h-5 text-white" />
-                        </div>
-                        <span className="text-xl font-bold text-slate-900">LetAHeader</span>
+                        <img
+                            src="https://i.ibb.co/MyRD18v8/by-Youmaximize.png"
+                            alt="LetAHeader"
+                            className="w-[160px] h-auto object-contain"
+                        />
                     </div>
 
                     <div className="text-center md:text-left">

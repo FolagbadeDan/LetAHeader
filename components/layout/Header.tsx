@@ -108,9 +108,9 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         ) : (
           <div className="flex items-center gap-4">
-            <button onClick={onOpenAuth} className="text-sm font-bold text-slate-600 hover:text-slate-900">
+            <Link href="/login" className="text-sm font-bold text-slate-600 hover:text-slate-900">
               Log In
-            </button>
+            </Link>
             <button
               onClick={onStart}
               className="text-sm font-bold bg-slate-900 text-white px-6 py-3 rounded-full hover:bg-slate-800 transition shadow-sm active:scale-95"
@@ -136,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="md:hidden absolute top-full left-0 w-full bg-white border-b border-slate-100 shadow-xl animate-in slide-in-from-top-5 duration-200">
             <div className="flex flex-col p-6 gap-6">
               {!session && (
-                <button onClick={() => { setIsMobileMenuOpen(false); onOpenAuth(); }} className="text-base font-medium text-slate-700 text-left">Log In</button>
+                <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-slate-700 text-left">Log In</Link>
               )}
               {session && (
                 <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-slate-700 text-left">Home</Link>
