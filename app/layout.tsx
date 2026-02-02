@@ -4,7 +4,7 @@ import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://letaheader.com'),
+  metadataBase: new URL('https://letaheader.work.gd'),
   title: {
     default: "LetAHeader - Professional Letterhead Maker & Editor",
     template: "%s | LetAHeader"
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://letaheader.com",
+    url: "https://letaheader.work.gd",
     title: "LetAHeader - Professional Letterhead Maker",
     description: "Generate perfectly branded PDF letters in seconds. No design skills required.",
     siteName: "LetAHeader",

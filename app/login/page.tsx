@@ -5,6 +5,7 @@ import { signIn } from 'next-auth/react';
 import { Mail, Lock, Loader2, ArrowRight, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Logo } from '@/components/ui/Logo';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -37,11 +38,7 @@ export default function LoginPage() {
             {/* Branding Side (Desktop) */}
             <div className="hidden md:flex w-1/2 bg-slate-900 text-white flex-col justify-between p-12 lg:p-16">
                 <div className="flex items-center gap-2 mb-8">
-                    <img
-                        src="https://i.ibb.co/MyRD18v8/by-Youmaximize.png"
-                        alt="LetAHeader"
-                        className="w-[200px] h-auto object-contain grayscale invert mix-blend-screen"
-                    />
+                    <Logo variant="light" />
                 </div>
 
                 <div>
@@ -58,11 +55,7 @@ export default function LoginPage() {
             <div className="flex-1 flex flex-col justify-center items-center p-6 md:p-12 lg:p-20 bg-slate-50 md:bg-white">
                 <div className="w-full max-w-md space-y-8">
                     <div className="md:hidden flex items-center gap-2 mb-8 justify-center">
-                        <img
-                            src="https://i.ibb.co/MyRD18v8/by-Youmaximize.png"
-                            alt="LetAHeader"
-                            className="w-[160px] h-auto object-contain"
-                        />
+                        <Logo />
                     </div>
 
                     <div className="text-center md:text-left">

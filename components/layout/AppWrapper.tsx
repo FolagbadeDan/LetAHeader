@@ -147,6 +147,7 @@ const AppWrapper: React.FC<AppWrapperProps> = ({ startMode = false }) => {
 
   const handleCloudSave = async () => {
     if (!session) {
+      setPricingReason("Please create a free account to save your work to the cloud.");
       setIsAuthModalOpen(true);
       return;
     }
@@ -380,7 +381,7 @@ const AppWrapper: React.FC<AppWrapperProps> = ({ startMode = false }) => {
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                 className="flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-slate-900"
               >
-                <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold uppercase">
+                <div className="w-8 h-8 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center font-bold uppercase">
                   {session.user?.name?.[0] || 'U'}
                 </div>
                 <ChevronDown className="w-4 h-4" />
@@ -518,7 +519,7 @@ const AppWrapper: React.FC<AppWrapperProps> = ({ startMode = false }) => {
       </div>
 
       {/* Floating Action Dock (Desktop & Mobile) */}
-      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 animate-in slide-in-from-bottom-10 duration-500">
+      <div className="fixed bottom-8 lg:bottom-6 left-1/2 transform -translate-x-1/2 z-40 animate-in slide-in-from-bottom-10 duration-500 pb-safe">
         <div className="flex items-center gap-2 bg-slate-900/90 backdrop-blur-xl border border-white/10 shadow-2xl rounded-full px-3 py-2 text-white ring-1 ring-black/5">
 
           {/* View Switchers (Mobile Only) */}
